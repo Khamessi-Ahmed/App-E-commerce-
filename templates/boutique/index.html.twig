@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BoutiqueController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="h-full flex ">
+  <div class="px-4 mx-4 md:flex gap-y-4  lg:w-96 h-screen flex-col  border-e bg-white">
+    <h2>Filtre</h2>
+    <div>
+      <form action="{{ path('app_boutique') }}" method="GET">
+      <label for="categorie" class="block text-sm font-medium text-gray-900"> Categorie </label>
+
+      <select
+        name="categorie"
+        id="categorie"
+        class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+      >
+        <option value="">Choisir</option>
+      {% for categorie in categories %}
+        <option 
+          {% if categorie.getLibelle() == filtre.categorie %}
+            selected
+          {% endif %}
+          value="{{categorie.getLibelle()}}"
+        >{{categorie.getLibelle()}}</option>
+      {% endfor %}
+      </select>
+    <div>
+
+    <label for="auteur" class="block text-sm font-medium text-gray-900"> Auteur </label>
+      <div class="relative mt-1.5">
+        <input
+          type="text"
+          name="auteur"
+          list="auteurList"
+          id="auteur"
+          value="{{filtre.auteur}}"
+          class="w-full rounded-lg border-gray-300 pe-10 text-gray-700 sm:text-sm [&::-webkit-calendar-picker-indicator]:opacity-0"
+          placeholder="Choisir"
+        />
+
+        <span class="absolute inset-y-0 end-0 flex w-8 items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-5 text-gray-500"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+            />
+          </svg>
+        </span>
+      </div>
+
+      <datalist name="auteurList" id="auteurList">
+        {% for auteur in auteurs %}
+        <option value="{{auteur}}">{{auteur}}</option>
+        {% endfor %}
+      </datalist>
+    </div>
+    <div>
+      <label for="titre" class="block text-sm font-medium text-gray-900"> Titre </label>
+      <input
+        type="text"
+        name="titre"
+        id="titre"
+        placeholder="titre.."
+        value="{{filtre.titre}}"
+        class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+      />
+      <input type="submit" class="mt-2 w-full bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" value="Chercher" >
+    </div>
+
+    </form>
+  </div>
+
+</div>
+
+  <div class="p-4 w-full h-full">
+    <div class=" h-full grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
+    {% for livre in pagination %}
+      <div class=" rounded-lg">
+        <a href="{{ path('app_boutique_livre', {'id': livre.id}) }}" class="group block">
+          <img
+            src="{{livre.Image}}"
+            alt="{{livre.titre}}"
+            class="aspect-[4/5] w-full rounded object-cover"
+          />
+
+          <div class="mt-3">
+            <h3 class="font-medium text-gray-900 group-hover:underline group-hover:underline-offset-4">
+              {{livre.titre}}
+            </h3>
+
+            <p class="mt-1 text-sm text-gray-700">{{livre.prix}} TND</p>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="pagination flex justify-center">
+    {{ knp_pagination_render(pagination, 'bundles/KnpPaginatorBundle/Pagination/custom_pagination.html.twig') }}
+    </div>
+  </div>
+</div>
+{% endblock %}

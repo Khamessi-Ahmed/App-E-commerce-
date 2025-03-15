@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+{# {% extends '@EasyAdmin/page/content.html.twig' %} #}
+{% block body %}
+{#
+<!--     <h1 class="w-full my-4 text-center">Dashboard</h1> -->
+<!--     <div class="min-h-[80vh] screen flex flex-wrap justify-center items-center bg-transparent border-2 w">    <!-- <h1 class="w-full text-3xl border-2 border-red-400">Dashboard</h1> --> -->
+<!--     <!-- <div class="flex flex-wrap justify-center items-center w-full h-full"> --> -->
+<!--     <!-- <h1 class="w-full text-3xl border-2 border-red-400">Dashboard</h1> --> -->
+<!---->
+<!--         <!-- <canvas id="lineChart"></canvas> --> -->
+<!--         <!-- <div class="w-[600px]">  --> -->
+<!--         <!--   <h1 class="text-3xl">Top des livres</h1> --> -->
+<!--         <div class="w-1/2"> -->
+<!--            -->
+<!--         <h1 class="w-full my-4 text-center">Livres Plus Vendu:</h1> -->
+<!--           <canvas id="barChart" class=""></canvas> -->
+<!--           </div> -->
+<!--         <!-- </div> --> -->
+<!--         <!-- <div class="w-[400px] text-3xl">  --> -->
+<!--         <!-- <h1>Top des catégories</h1> --> -->
+<!--         <div class="1/2"> -->
+<!--         <h1 class="w-full my-4 text-center">Categories Plus Vendu:</h1> -->
+<!--         <canvas id="pieChart" class=""></canvas> -->
+<!--         </div> -->
+<!-- </div> -->
+#}
+    <h1 class="w-full my-4 text-center">Dashboard</h1>
+    <div class="flex justify-center">
+    <div class="border-2 border-gray-300 p-4 rounded-lg w-fit flex flex-col justify-center items-center">
+    <h2 class="w-full my-4 text-center">Nombre total des commandes</h2>
+    <h4>{{nombreCommandes}}</h4>
+    </div>
+    </div>
+<div class="p-4 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+
+  <div class="border-2 border-gray-300 p-4 h-[800px] rounded-lg flex flex-col justify-center items-center">
+        <h2 class="w-full my-4 text-center">Categories Plus Vendu:</h2>
+        <canvas id="pieChart" class="max-w-[500px]"></canvas>
+  </div>
+  <div class="h-full border-2 border-gray-300 p-4 rounded-lg flex flex-col justify-start items-center">
+        <h2 class="w-full my-4 text-center">Livres Plus Vendu:</h2>
+          <canvas id="barChart" class="w-48"></canvas>
+  </div>
+</div>
+        <!-- </div> -->
+
+    <!-- </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+      // Bar Chart
+      const barCtx = document.getElementById('barChart').getContext('2d');
+      new Chart(barCtx, {
+          type: 'bar',
+          data: {
+              labels: [
+                  {% for item in topLivres %}
+                      '{{ item.titre }}'{% if not loop.last %},{% endif %}
+                  {% endfor %}
+              ],
+              datasets: [{
+                  label: 'Total des ventes',
+                  backgroundColor: 'rgb(75, 192, 192)',
+                  borderColor: 'rgb(75, 192, 192)',
+                  data: [
+                      {% for item in topLivres %}
+                          {{ item.total }}{% if not loop.last %},{% endif %}
+                      {% endfor %}
+                  ]
+              }]
+          },
+          options: {
+              plugins: {
+                  legend: {
+                      labels: {
+                          padding: 0,
+                          margin: 0,
+                          color: 'black'
+                      }
+                  }
+              },
+              scales: {
+                  x: {
+                      ticks: { color: 'black' },
+                      grid: { color: '#444' }
+                  },
+                  y: {
+                      ticks: { color: 'black' },
+                      grid: { color: '#444' }
+                  }
+              }
+          }
+      });
+
+      // Pie Chart
+      const pieCtx = document.getElementById('pieChart').getContext('2d');
+      new Chart(pieCtx, {
+          type: 'pie',
+          data: {
+              labels: [
+                  {% for item in topCategories %}
+                      '{{ item.nom }}'{% if not loop.last %},{% endif %}
+                  {% endfor %}
+              ],
+              datasets: [{
+                  label: 'Total Achetee',
+                  backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)'],
+                  data: [
+                      {% for item in topCategories %}
+                          {{ item.total }}{% if not loop.last %},{% endif %}
+                      {% endfor %}
+                  ]
+              }]
+          },
+          options: {
+              plugins: {
+                  legend: {
+                      labels: {
+                          color: 'black'
+                      }
+                  }
+              }
+          }
+      });
+
+  </script>
+{% endblock %}
+
+

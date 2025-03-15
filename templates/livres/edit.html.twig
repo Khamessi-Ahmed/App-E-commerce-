@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Livres{% endblock %}
+
+{% block body %}
+    <div class="py-8 w-full flex flex-col items-center">
+    <h1>Edit Livres</h1>
+      <div class="min-w-[50%]">
+        {{ include('livres/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="w-full flex flex-col items-center">
+          <div>
+            {{ include('livres/_delete_form.html.twig') }}
+            <a href="{{ path('app_livres') }}">back to list</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

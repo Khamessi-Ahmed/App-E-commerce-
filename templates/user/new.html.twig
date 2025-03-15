@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+  <div class="h-[80vh] min-h-fit flex justify-center items-center">
+    <div class="flex flex-col gap-4 min-h-[50vh]">
+    <h1>Create new User</h1>
+    {{ include('user/_form.html.twig') }}
+    <a href="{{ path('app_user') }}">back to list</a>
+    </div>
+    </div>
+{% endblock %}

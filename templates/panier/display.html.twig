@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Panier{% endblock %}
+
+{% block body %}
+    <h1>My Panier</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for panierItem in panierItems %}
+                <tr>
+                    <td>{{ panierItem.getLivre().getTitre() }}</td>
+                    <td>{{ panierItem.getLivre().getEditeur() }}</td>
+                    <td>{{ panierItem.getQuantite() }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Your panier is empty.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

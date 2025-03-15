@@ -1,0 +1,98 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre{% endblock %}
+
+{% block body %}
+<section>
+  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="max-w-3xl">
+      <h2 class="text-3xl font-bold sm:text-4xl">
+      {{livre.titre}}
+      </h2>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+      <div class="relative h-64 overflow-hidden sm:h-80 lg:h-full">
+        <img
+          alt="livre-image"
+          src="{{livre.image}}"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+
+      <div class="lg:py-16">
+    <table class="divide-y-2 divide-gray-200 bg-white text-sm">
+
+    <div class="flex ">
+      </div>
+
+        <tbody class="divide-y divide-gray-200">
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Id</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ livre.id }}</td>
+          </tr>
+
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Titre</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ livre.titre }}</td>
+          </tr>
+
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Isbn</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.Isbn}}</td>
+          </tr>
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Resume</td>
+            <td class="whitespace-nowrap text-wrap px-4 py-2 text-gray-700">{{livre.resume}}</td>
+          </tr>
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Editeur</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.editeur}}</td>
+          </tr>
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Prix</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.prix}}</td>
+          </tr>
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Quantite Restante</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.Qte}}</td>
+          </tr>
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Auteur</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.Auteur}}</td>
+          </tr>
+        </tbody>
+      </table>  
+    <a
+      class="my-4 inline-flex items-center gap-2 rounded border border-teal-600 px-8 py-3 text-teal-600 hover:bg-teal-600 hover:text-white focus:outline-noneactive:bg-teal-500"
+      href="{{ path('add_livre_to_panier', {'livre': livre.id}) }}"
+    >
+      <span class="text-sm font-medium"> Ajouter au Panier </span>
+
+      <svg
+        class="size-5 rtl:rotate-180"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17 8l4 4m0 0l-4 4m4-4H3"
+        />
+      </svg>
+    </a>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+{#
+    <a href="{{ path('app_livres') }}">back to list</a>
+    <a href="{{ path('app_livres_edit', {'id': livre.id}) }}">edit</a>
+#}
+{% endblock %}

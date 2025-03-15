@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Livres{% endblock %}
+
+{% block body %}
+  <div class="min-h-[80vh] flex justify-center items-center">
+    <div class="flex flex-col gap-4 min-h-[50vh]">
+    <h1>Create new Livres</h1>
+    {{ include('livres/_form.html.twig') }}
+    <a href="{{ path('app_livres') }}">back to list</a>
+    </div>
+    </div>
+{% endblock %}

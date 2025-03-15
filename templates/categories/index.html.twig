@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories index{% endblock %}
+
+{% block body %}
+{#
+    <table class="table">
+        <thead>
+            <tr>
+                <th >Id</th>
+                <th>Libelle</th>
+                <th>Slug</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.libelle }}</td>
+                <td>{{ category.slug }}</td>
+                <td>{{ category.description }}</td>
+                <td>
+                    <a href="{{ path('app_categories_show', {'id': category.id}) }}">show</a>
+                    <a href="{{ path('app_categories_edit', {'id': category.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_categories_new') }}">Create new</a>
+#}
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+<div class="py-8 flex flex-col items-center  min-h-screen">
+  <div>
+    <h3>Categories</h3>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+        <thead class="ltr:text-left rtl:text-right">
+          <tr>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Id</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Libelle</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Slug</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Description</th>
+            <th class="px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-200">
+          {% for categorie in pagination %}
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{categorie.id}}</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ categorie.libelle }}</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ categorie.slug}}</td>
+            <td class="whitespace-nowrap overflow-hidden px-4 py-2 max-w-80 text-gray-700">{{ categorie.description}}</td>
+            <td class="whitespace-nowrap px-4 py-2">
+              <a
+                href="{{ path('app_categories_show', {'id': categorie.id}) }}"
+                class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+              >
+                Détails
+              </a>
+              <a
+                href="{{ path('app_categories_edit', {'id': categorie.id}) }}"
+                class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+              >
+                Editer
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {{ knp_pagination_render(pagination, 'bundles/KnpPaginatorBundle/Pagination/custom_pagination.html.twig') }}
+    </div>
+    <a
+      href="{{ path('app_categories_new') }}"
+      class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+    >
+      Nouvelle Categorie
+    </a>
+  </div>
+</div>
+{% endblock %}

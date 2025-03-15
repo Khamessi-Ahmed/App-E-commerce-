@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<div class="overflow-x-auto">
+  
+  <div class="h-[80vh] min-h-fit flex justify-center items-center">
+    <div class="w-[66%] flex flex-col gap-4 min-h-[50vh]">
+    <h1 class="w-full text-center">Commande details</h1>
+  <table class="min-w-1/2 divide-y-2 divide-gray-200 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right">
+      <tr>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Livre</th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Qte</th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Prix</th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-gray-200">
+    {% for achat in commande.achats%}
+      <tr>
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{achat.livre.titre}}</td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{achat.qte}}</td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{achat.livre.prix * achat.qte}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  </div>
+</div>
+{% endblock %}

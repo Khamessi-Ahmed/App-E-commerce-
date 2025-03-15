@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+{% block body %}
+
+<!--
+  Heads up!
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+<div class="flex justify-center">
+  <div class="overflow-x-auto">
+<h1>Liste des livres</h1>
+    <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+      <thead class="ltr:text-left rtl:text-right">
+        <tr>
+      <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Titre</th>
+      <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">ISBN</th>
+      <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Editeur</th>
+      <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Date Edition</th>
+      <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Prix(DT)</th>
+      <th class="px-4 py-2">Action</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        {% for livre in pagination %}
+        <tr>
+          <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{livre.titre|capitalize}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.isbn}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.editeur}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.editedAt|date('d-m-Y')}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{livre.prix}}</td>
+          <td class="whitespace-nowrap px-4 py-2">
+            <a href="{{ path('app_livres_show', {'id': livre.id}) }}" class="no-underline inline-block rounded border-2 border-teal-600 text-teal-600 hover:bg-teal-600 px-4 py-2 text-xs font-medium hover:text-white " >
+              Details
+            </a>
+            <a href="{{ path('app_livres_edit', {'id': livre.id}) }}"class="no-underline inline-block rounded border-2 border-teal-600 text-teal-600 hover:bg-teal-600 px-4 py-2 text-xs font-medium hover:text-white " >
+              Editer
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a
+      href="{{ path('app_livres_new') }}"
+      class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+    >
+      Nouvelle Livre
+    </a>
+    {{ knp_pagination_render(pagination, 'bundles/KnpPaginatorBundle/Pagination/custom_pagination.html.twig') }}
+  </div>
+</div>
+{% endblock %}

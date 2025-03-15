@@ -1,0 +1,32 @@
+{# {{ form_start(form) }} #}
+{#     {{ form_widget(form) }} #}
+{##}
+{# <!-- Border --> #}
+{##}
+{# <a #}
+{#   class="inline-flex gap-y-4 items-center gap-2 rounded border no-underline text-teal-600 border-teal-600 px-8 py-3  hover:bg-teal-600 hover:text-white outline-none  active:bg-teal-500" #}
+{#   href="#" #}
+{# > #}
+{#   <span class="text-sm font-medium"> {{ button_label|default('Save') }} #}
+{#   </span> #}
+{##}
+{#   <svg #}
+{#     class="size-5 rtl:rotate-180" #}
+{#     xmlns="http://www.w3.org/2000/svg" #}
+{#     fill="none" #}
+{#     viewBox="0 0 24 24" #}
+{#     stroke="currentColor" #}
+{#   > #}
+{#     <path #}
+{#       stroke-linecap="round" #}
+{#       stroke-linejoin="round" #}
+{#       stroke-width="2" #}
+{#       d="M17 8l4 4m0 0l-4 4m4-4H3" #}
+{#     /> #}
+{#   </svg> #}
+{# </a> #}
+{# {{ form_end(form) }} #}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-secondary my-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

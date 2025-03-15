@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+{{include('home/heroSection.html.twig')}}
+{{include('home/discoverSection.html.twig')}}
+{{include('home/aboutSection.html.twig')}}
+
+{% endblock %}

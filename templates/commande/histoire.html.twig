@@ -1,0 +1,48 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hisoire Commandes{% endblock %}
+{% block body %}
+
+<div class="my-8 min-h-[60vh]">
+  <div class="w-full flex flex-col items-center justify-center overflow-x-auto">
+    <h1>Historique Commandes</h1>
+    <table class="w-[70%] min-w-fit divide-y-2 divide-gray-200 bg-white text-sm">
+      <thead class="ltr:text-left rtl:text-right">
+        <tr>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">commande</th>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Date d'achat</th>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Etat</th>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Total</th>
+          <th class="px-4 py-2">Action</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+       {% for commande in commandes %}
+        <tr>
+          <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{commande.id}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{commande.dateDeCommande|date('Y-m-d')}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{commande.etat}}</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{commande.prix}} TND</td>
+          <td class="whitespace-nowrap px-4 py-2">
+            <a
+              href="{{ path('checkout', {'id': commande.id}) }}"
+              class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+            >
+              Checkout
+            </a>
+            <a
+              href="{{ path('app_commande_details', {'id': commande.id}) }}"
+              class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+            >
+              Voir
+            </a>
+          </td>
+        </tr>
+       {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

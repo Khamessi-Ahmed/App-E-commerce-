@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BoutiqueController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="h-full flex">
+  <div class="flex h-screen flex-col justify-between border-e bg-white">
+    <!-- ... -->
+  </div>
+
+  <div class="p-4 w-full h-full">
+    <div class=" h-full grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
+    {% for livre in pagination %}
+      <div class=" rounded-lg">
+        <a href="{{ path('app_boutique_livre', {'id': livre.id}) }}" class="group block">
+          <img
+            src="{{livre.Image}}"
+            alt="{{livre.titre}}"
+            class="aspect-square w-full rounded object-cover"
+          />
+
+          <div class="mt-3">
+            <h3 class="font-medium text-gray-900 group-hover:underline group-hover:underline-offset-4">
+              {{livre.titre}}
+            </h3>
+
+            <p class="mt-1 text-sm text-gray-700">${{livre.prix}}</p>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="pagination">
+        <!-- {{ knp_pagination_render(pagination) }} -->
+    {{ knp_pagination_render(pagination, 'bundles/KnpPaginatorBundle/Pagination/custom_pagination.html.twig') }}
+    </div>
+  </div>
+</div>
+{% endblock %}

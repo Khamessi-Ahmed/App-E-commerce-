@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+<div class="flex flex-col items-center">
+  <h3>Users</h3>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+      <thead class="ltr:text-left rtl:text-right">
+        <tr>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Id</th>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Email</th>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Roles</th>
+          <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Password</th>
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        {% for user in pagination %}
+          <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{user.id}}</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{user.email}}</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700"> {{ user.roles ? user.roles|json_encode : '' }} </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 overflow-hidden">{{user.password}}</td>
+            <td class="whitespace-nowrap px-4 py-2">
+              <a
+                href="{{ path('app_user_show', {'id': user.id}) }}"
+                class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+              >
+                Details
+              </a>
+              <a
+                href="{{ path('app_user_edit', {'id': user.id}) }}"
+                class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+              >
+                Editer
+              </a>
+            </td>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {{ knp_pagination_render(pagination, 'bundles/KnpPaginatorBundle/Pagination/custom_pagination.html.twig') }}
+  </div>
+  <a
+    href="{{ path('app_user_new') }}"
+    class="inline-block rounded bg-teal-600 px-4 py-2 text-xs font-medium text-white hover:bg-teal-700"
+  >
+    Ajouter User
+  </a>
+</div>
+{% endblock %}
